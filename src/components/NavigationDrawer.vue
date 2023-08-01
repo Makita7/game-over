@@ -1,14 +1,11 @@
 <script>
-
     export default {
         data () {
-        return {
-            drawer: true,
-            rail: true,
-        }
+            return {
+                drawer: true,
+                rail: true,
+            }
         },
-        components:{
-        }
     }
 </script>
 
@@ -17,14 +14,15 @@
         <v-layout>
         <v-navigation-drawer
             v-model="drawer"
+            ref="rail"
             :rail="rail"
             permanent
-            @click="rail = false"
+            @click="rail = !rail"
             color="secondary"
         >
             <v-list-item
-                prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
-                title="John Leider"
+                prepend-avatar="https://i.pinimg.com/564x/65/3b/52/653b529d011d70aa018179c25c89072a.jpg"
+                title="Username"
                 nav
             >
             <template v-slot:append>

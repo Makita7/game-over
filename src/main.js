@@ -32,6 +32,9 @@ const vuetify = createVuetify({
                 }
             }
         }
+    },
+    icons: {
+        iconfont: ''
     }
 })
 
