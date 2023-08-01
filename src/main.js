@@ -29,7 +29,11 @@ const vuetify = createVuetify({
                     // info: '#2196F3',
                     // success: '#4CAF50',
                     // warning: '#FB8C00',
+                    genre: '#99D4DC',
                     tag: '#FFCC7E',
+                    platform: '#D8E3D6',
+                    devs: '#D0EAED',
+                    publishers: '#E5E0EF',
                 }
             }
         }
