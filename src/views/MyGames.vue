@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>my games</h1>
+        <h1>my games54</h1>
     </div>
 </template>
 

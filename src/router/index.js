@@ -10,9 +10,9 @@ const router = createRouter({
       component: MainFeed
     },
     {
-      path: '/my_games',
-      name: 'my games',
-      component: () => import('../views/MyGames.vue')
+      path: '/game',
+      name: 'game',
+      component: () => import('../views/MyGames.vue'),
     },
     {
       path: '/wishlist',

@@ -38,27 +38,27 @@
 
             <v-list density="compact" nav>
                 <v-list-item
-                    prepend-icon="mdi-account"
+                    prepend-icon="mdi-play"
                     title="Main Feed"
                     to="/"
-                    value="account"
+                    value="main"
                 />
                 <v-list-item
-                    prepend-icon="mdi-account"
+                    prepend-icon="mdi-nintendo-game-boy"
                     title="My Games"
-                    value="account"
-                    to="/my_game"
+                    value="/games"
+                    to="/game"
                 />
                 <v-list-item
-                    prepend-icon="mdi-account"
+                    prepend-icon="mdi-format-list-bulleted"
                     title="Wishlist"
-                    value="account"
+                    value="wishlist"
                     to="/wishlist"
                 />
                 <v-list-item
-                    prepend-icon="mdi-account"
+                    prepend-icon="mdi-cog"
                     title="Preferences"
-                    value="account"
+                    value="preferences"
                     to="/preferences"
                 />
             </v-list>
