@@ -7,6 +7,7 @@ import NavigationDrawer from './components/NavigationDrawer.vue';
   <NavigationDrawer/>
   <div style="margin-left: 56px;">
     <RouterView />
+    <vue-feather type="feather"></vue-feather>
   </div>
 </template>
 

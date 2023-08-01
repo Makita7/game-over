@@ -14,6 +14,25 @@ import * as directives from 'vuetify/directives'
 const vuetify = createVuetify({
     components,
     directives,
+    theme:{
+        defaultTheme: 'gameTheme',
+        themes: {
+            gameTheme: {
+                dark: true,
+                colors: {
+                    background: 'black',
+                    surface: '#0D092B',
+                    primary: '#FFFFFF',
+                    secondary: '#0D092B',
+                    // error: '#B00020',
+                    // info: '#2196F3',
+                    // success: '#4CAF50',
+                    // warning: '#FB8C00',
+                    tag: '#FFCC7E',
+                }
+            }
+        }
+    }
 })
 
 

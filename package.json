@@ -10,8 +10,6 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "feather-icons": "^4.29.0",
-    "vue": "^3.3.4",
     "vue-router": "^4.2.4",
     "vuetify": "^3.3.8"
   },

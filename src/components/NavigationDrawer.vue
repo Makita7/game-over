@@ -20,12 +20,12 @@
             :rail="rail"
             permanent
             @click="rail = false"
-            color="#0D092B"
+            color="secondary"
         >
             <v-list-item
-            prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
-            title="John Leider"
-            nav
+                prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
+                title="John Leider"
+                nav
             >
             <template v-slot:append>
                 <v-btn
@@ -68,3 +68,10 @@
         </v-layout>
     </v-card>
 </template>
+
+<style scoped>
+.nav{
+    background-color: #0D092B;
+    color: white;
+}
+</style>
