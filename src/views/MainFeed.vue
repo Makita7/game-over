@@ -5,7 +5,7 @@
     export default{
         data(){
             return{
-
+                link: 'https://api.rawg.io/api/games',
             }
         },
         components:{

@@ -21,7 +21,7 @@ const vuetify = createVuetify({
             gameTheme: {
                 dark: true,
                 colors: {
-                    background: 'black',
+                    background: '#000000',
                     surface: '#0D092B',
                     primary: '#FFFFFF',
                     secondary: '#0D092B',

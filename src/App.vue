@@ -30,5 +30,8 @@ import NavigationDrawer from './components/NavigationDrawer.vue';
     background-repeat: no-repeat;
     background-size: auto;
     min-height: 100vh;
+    z-index: -5;
+    position: absolute;
+    width: 100%;
   }
 </style>

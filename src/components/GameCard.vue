@@ -41,6 +41,8 @@
         border-radius: 15px;
         width: 28rem;
         min-height: 20rem;
+        z-index: -3;
+        position: relative;
         .wrap{
             flex-wrap: wrap;
         }
