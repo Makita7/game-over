@@ -34,6 +34,7 @@ const vuetify = createVuetify({
                     platform: '#D8E3D6',
                     devs: '#D0EAED',
                     publishers: '#E5E0EF',
+                    brown: '#370D0D',
                 }
             }
         }

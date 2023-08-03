@@ -7,7 +7,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'main feed',
-      component: MainFeed
+      component: MainFeed,
+      props: { loading: true }
     },
     {
       path: '/game',

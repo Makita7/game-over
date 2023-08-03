@@ -13,6 +13,7 @@ dist
 dist-ssr
 coverage
 *.local
+API_KEY.js
 
 /cypress/videos/
 /cypress/screenshots/
