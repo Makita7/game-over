@@ -39,9 +39,9 @@
             },
             getMore(link){
                 window.scroll({ top: 0})
-                this.data = null;
-                this.loading = true;
                 if(link !== null){
+                    this.data = null;
+                    this.loading = true;
                     const res = axios
                         .get(link)
                         .then( res => {
