@@ -9,7 +9,6 @@
             return{
                 link: `https://api.rawg.io/api/games?key=d151343fa3374641b091728b469565b0`,
                 data: [],
-                key:'d151343fa3374641b091728b469565b0',
                 next: null,
                 prev: null,
                 loading: true,

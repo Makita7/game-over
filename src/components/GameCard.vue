@@ -16,7 +16,7 @@
 </script>
 
 <template>
-    <div class="card mb-6 fadingIn">
+    <div class="card mb-6 fadingIn ms-1">
         <div class="mt-2 mr-3 align-last pl-2">
             <div class="label ml-3">
                 <p class="text-capitalize font-italic">saved to List_Name</p>
