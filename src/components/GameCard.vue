@@ -1,4 +1,5 @@
 <script>
+
     export default {
         data(){
             return{
@@ -11,6 +12,8 @@
             platforms: Array,
             genres: Array,
             title: String,
+        },
+        components:{
         }
     }
 </script>
@@ -104,6 +107,7 @@
             </div>
         </div>
     </div>
+        <RouterLink :to="`/detail/${id}`">Link</RouterLink>
 </template>
 
 <style scoped lang="scss">
@@ -121,10 +125,6 @@
         .align-last{
             display: flex;
             justify-content: flex-end;
-        }
-        .pill{
-            font-weight: 700;
-            letter-spacing: 1.2px;
         }
         .label{
             color: #370D0D;

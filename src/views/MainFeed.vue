@@ -76,7 +76,6 @@
 </script>
 
 <template>
-    {{ API_KEY }}
     <div class="filter" v-if="loading">
         <OrbitSpinner
             :animation-duration="1200"
@@ -99,6 +98,7 @@
 
             :data="i"
         />
+        <RouterLink to="/preferences">Link</RouterLink>
     </div>
     <v-row class="justify-space-between ml-1 mr-1 pt-1 mb-2" v-if="!loading">
         <v-btn @click="getMore(prev)" >Prev</v-btn>

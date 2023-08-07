@@ -8,7 +8,6 @@ const router = createRouter({
       path: '/',
       name: 'main feed',
       component: MainFeed,
-      props: { loading: true }
     },
     {
       path: '/game',
@@ -24,7 +23,12 @@ const router = createRouter({
       path: '/preferences',
       name: 'preferences',
       component: () => import('../views/MyPreferences.vue'),
-    }
+    },
+    {
+      path: '/detail/:id',
+      name: 'detail',
+      component: () => import('../views/GameDetail.vue'),
+    },
   ]
 })
 

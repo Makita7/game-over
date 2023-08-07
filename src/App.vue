@@ -18,21 +18,13 @@
 
 <template>
     <div class="img">
-      <div class="filter" v-if="loading">
-        <OrbitSpinner
-            :animation-duration="1200"
-            :size="55"
-            color="#ffffff"
-            class="ml-auto mr-auto "
-        />
-    </div>
 
       <div class="d-flex">
         <img src="./assets/assets_logo.png" class="logo mt-4 ml-auto mr-auto" />
 
       </div>
       <NavigationDrawer/>
-      <div style="margin-left: 56px;" class="pa-6">
+      <div style="margin-left: 56px;" class="pa-6 index">
         <RouterView />
       </div>
     </div>
@@ -54,6 +46,11 @@
         padding-top: 15rem;
     }
 
+    .pill{
+        font-weight: 700;
+        letter-spacing: 1.2px;
+    }
+
     .fadingIn{
     animation: fadeIn;
     animation-duration: 1s;
@@ -72,5 +69,9 @@
       z-index: -5;
       position: absolute;
       width: 100%;
+}
+.index{
+  z-index: -3;
+  position: relative;
 }
 </style>
