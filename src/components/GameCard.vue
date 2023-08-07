@@ -1,4 +1,5 @@
 <script>
+import PillComp from './PillComp.vue';
 
     export default {
         data(){
@@ -14,6 +15,7 @@
             title: String,
         },
         components:{
+            PillComp,
         }
     }
 </script>
@@ -36,74 +38,50 @@
             </div>
             <div>
                 <div class="wrap ml-3 mt-3">
-                    <v-chip
+                    <PillComp
                         v-for="g in genres.slice(0,4)"
                         :key="g.id"
                         color="genre"
-                        size="small"
-                        variant="elevated"
-                        class="text-capitalize ma-1 pill"
-                    >
-                        {{ g.name }}
-                    </v-chip>
-                    <v-chip
+                        :name="g.name"
+                    />
+                    <PillComp
                         v-if="genres > 4"
-                        variant="elevated"
-                        size="small"
-                        color="platform"
-                        class="text-capitalize ma-1 pill"
-                    >
-                        ...
-                    </v-chip>
+                        color="genre"
+                        name="..."
+                    />
                 </div>
 
                 <v-divider class="mt-2 mb-2"/>
 
                 <div class="wrap ml-3" >
-                    <v-chip
+                    <PillComp
                         v-for="p in platforms.slice(0,4)"
                         :key="p.platform.id"
-                        variant="elevated"
-                        size="small"
                         color="platform"
-                        class="text-capitalize ma-1 pill"
-                    >
-                        {{ p.platform.name }}
-                    </v-chip>
-                    <v-chip
+                        :name="p.platform.name"
+                    />
+                    <PillComp
                         v-if="platforms > 4"
-                        variant="elevated"
-                        size="small"
                         color="platform"
-                        class="text-capitalize ma-1 pill"
-                    >
-                        ...
-                    </v-chip>
+                        name="..."
+                    />
 
                 </div>
 
                 <v-divider class="mt-2 mb-2"/>
 
                 <div class="wrap mt-1 ml-3 mb-3" >
-                    <v-chip
+                    <PillComp
                         v-for="t in tags.slice(0,3)"
                         :key="t.id"
-                        variant="elevated"
-                        size="small"
                         color="tag"
-                        class="text-capitalize ma-1 pill"
-                    >
-                        {{ t.name }}
-                    </v-chip>
-                    <v-chip
+                        :name="t.name"
+                    />
+                    <PillComp
                         v-if="tags.length > 3"
-                        variant="elevated"
-                        size="small"
                         color="tag"
-                        class="text-capitalize ma-1 pill"
-                    >
-                        ...
-                    </v-chip>
+                        name="..."
+                    />
 
                 </div>
             </div>

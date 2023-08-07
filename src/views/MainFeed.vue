@@ -98,7 +98,6 @@
 
             :data="i"
         />
-        <RouterLink to="/preferences">Link</RouterLink>
     </div>
     <v-row class="justify-space-between ml-1 mr-1 pt-1 mb-2" v-if="!loading">
         <v-btn @click="getMore(prev)" >Prev</v-btn>
