@@ -1,6 +1,6 @@
 <script>
 import PillComp from '../components/PillComp.vue';
-import PlatformCard from '../components/PlatformCard.vue';
+import PRCard from '../components/PlatformRequirementCard.vue';
 
 export default{
     data(){
@@ -599,18 +599,25 @@ export default{
             ],
             image: '',
             dialog: false,
+            platformReq: [],
         }
     },
     components: {
         PillComp,
-        PlatformCard,
+        PRCard,
     },
     methods: {
         OpenDialog(img){
             this.image = img;
             this.dialog = true;
+        },
+        GetPlatformReq(){
+            this.platformReq = this.data[0].platforms.filter(i => i.requirements_en !== null);
         }
-    }
+    },
+    mounted() {
+        this.GetPlatformReq();
+    },
 }
 </script>
 
@@ -680,9 +687,21 @@ export default{
         </div>
 
         <v-divider class="mt-4 mb-4"/>
+
+        <div class="d-flex wrap around">
+            <PRCard
+                v-for="r in platformReq"
+                :key="r.id"
+                :name="r.platform.name"
+                :id="r.platform.id"
+                :req="r.requirements_en.minimum"
+            />
+        </div>
+
+
+        <v-divider class="mt-4 mb-4"/>
         <div>
             <p class="text-subtitle-1 text-uppercase">screenshots:</p>
-            <!-- make the image appear big when you click it -->
             <div class="d-flex wrap around">
                 <img
                     class="screenshots ma-2"
@@ -697,9 +716,6 @@ export default{
                     width="auto"
                 >
                     <v-card width="60rem" style="border-radius: 20px;">
-                        <!-- <v-card-actions class="justify-end">
-                            <v-btn color="primary" fab @click="dialog = false" icon="mdi-close" />
-                        </v-card-actions> -->
                         <v-img :src="image" alt="big screenthot"/>
                     </v-card>
                 </v-dialog>
