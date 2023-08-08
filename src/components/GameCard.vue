@@ -1,9 +1,11 @@
 <script>
 import PillComp from './PillComp.vue';
+import { useGameStore } from '../stores/GameStore';
 
     export default {
         data(){
             return{
+                gamestore: useGameStore(),
             }
         },
         props: {
@@ -13,9 +15,16 @@ import PillComp from './PillComp.vue';
             platforms: Array,
             genres: Array,
             title: String,
+            data: Object,
         },
         components:{
             PillComp,
+        },
+        methods: {
+            SetInfo(){
+                this.gamestore.SaveGameDetails(this.data);
+                // localStorage.setItem('cardDetail', JSON.stringify(this.data) );
+            }
         }
     }
 </script>
@@ -86,7 +95,7 @@ import PillComp from './PillComp.vue';
                 </div>
             </div>
         </div>
-        <RouterLink :to="`/detail/${id}`" class="d-flex justify-end mt-1" style="text-decoration: none !important;">
+        <RouterLink :to="`/detail/${id}`" @click="SetInfo()" class="d-flex justify-end mt-1" style="text-decoration: none !important;">
             More Details
             <v-icon aria-hidden="false" class="ml-2">
                 mdi-eye

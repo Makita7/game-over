@@ -9,8 +9,6 @@
             return{
                 link: `https://api.rawg.io/api/games?key=d151343fa3374641b091728b469565b0`,
                 data: [],
-                next: null,
-                prev: null,
                 loading: true,
             }
         },
@@ -35,7 +33,7 @@
             loadingSpinner(){
                 setTimeout(() => {
                     this.loading = false;
-                }, 3000);
+                }, 2500);
             },
             getMore(link){
                 window.scroll({ top: 0})
@@ -54,12 +52,6 @@
                 }
                 this.loadingSpinner();
             },
-            setlinks(){
-                setTimeout(() => {
-                    this.next = this.data.next;
-                    this.prev = this.data.previous;
-                },2000)
-            },
         },
         mounted() {
             if(sessionStorage.getItem('games') === true){
@@ -69,7 +61,6 @@
                 this.getGames();
                 this.loadingSpinner();
             }
-            this.setlinks();
         },
     }
 
@@ -100,9 +91,11 @@
         />
     </div>
     <v-row class="justify-space-between ml-1 mr-1 pt-1 mb-2" v-if="!loading">
-        <v-btn @click="getMore(prev)" >Prev</v-btn>
-        <v-btn @click="getMore(next)" >Next</v-btn>
+        <v-btn @click="getMore(data.previous)" >Prev</v-btn>
+        <v-btn @click="getMore(data.next)" >Next</v-btn>
     </v-row>
+
+    <div v-if="!data">No data</div>
 </template>
 
 <style scoped>
