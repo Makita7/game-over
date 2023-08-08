@@ -1,15 +1,17 @@
 <script>
-    import 'vue'
+    import 'vue';
     import GameCard from '../components/GameCard.vue';
     import { OrbitSpinner } from 'epic-spinners';
     import axios from 'axios';
+    import { useGameStore } from '../stores/GameStore';
 
     export default{
         data(){
             return{
-                link: `https://api.rawg.io/api/games?key=d151343fa3374641b091728b469565b0`,
+                link: '',
                 data: [],
                 loading: true,
+                store: useGameStore(),
             }
         },
         props:{
@@ -39,6 +41,7 @@
                 window.scroll({ top: 0})
                 if(link !== null){
                     this.data = null;
+                    this.store.SetPage(link)
                     this.loading = true;
                     const res = axios
                         .get(link)
@@ -54,6 +57,7 @@
             },
         },
         mounted() {
+            this.link = this.store.currentpage;
             if(sessionStorage.getItem('games') === true){
                 this.data = sessionStorage.getItem('games');
                 this.loadingSpinner();
@@ -99,11 +103,5 @@
 </template>
 
 <style scoped>
-    .filter{
-        background-color: rgba(6, 4, 38, 0.406);
-        height: 100vh;
-        widows: 100vh;
-        z-index: +100;
-        position: relative;
-    }
+
 </style>

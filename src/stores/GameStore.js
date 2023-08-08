@@ -4,12 +4,16 @@ import { defineStore } from "pinia";
 export const useGameStore = defineStore("GameDetails", {
     state: () => {
         return {
-            gameDetail: []
+            gameDetail: [],
+            currentpage: 'https://api.rawg.io/api/games?key=d151343fa3374641b091728b469565b0',
         };
     },
     actions: {
         SaveGameDetails(data){
             this.gameDetail.push(data)
-        }
+        },
+        SetPage(link){
+            this.currentpage = link
+        },
     }
 })

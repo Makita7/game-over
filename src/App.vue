@@ -60,6 +60,14 @@
     from {opacity: 0%;}
     to {opacity: 100%;}
   }
+
+  .filter{
+        background-color: rgba(6, 4, 38, 0.406);
+        height: 100vh;
+        widows: 100vh;
+        z-index: +100;
+        position: relative;
+    }
 }
 .img {
       background-image: url("./assets/bg.png") !important;

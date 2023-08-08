@@ -34,7 +34,8 @@ export default{
         }
     },
     mounted() {
-        this.data = this.store.gameDetail;
+        window.scroll({ top: 0})
+        this.data = this.store.gameDetail.filter(i => i.id == this.$route.params.id);
         setTimeout(() => {
             this.GetPlatformReq();
             this.loading = false;
@@ -154,7 +155,7 @@ export default{
         </div>
     </div>
 
-    <!-- <div v-else> Sorry an error has ocurred, No data Available </div> -->
+    <div v-if="!data"> Sorry an error has ocurred, No data Available </div>
 </template>
 
 
