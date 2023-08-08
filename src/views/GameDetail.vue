@@ -596,12 +596,20 @@ export default{
                     }
                     ]
                 },
-            ]
+            ],
+            image: '',
+            dialog: false,
         }
     },
     components: {
         PillComp,
         PlatformCard,
+    },
+    methods: {
+        OpenDialog(img){
+            this.image = img;
+            this.dialog = true;
+        }
     }
 }
 </script>
@@ -676,7 +684,25 @@ export default{
             <p class="text-subtitle-1 text-uppercase">screenshots:</p>
             <!-- make the image appear big when you click it -->
             <div class="d-flex wrap around">
-                <img class="screenshots ma-2" v-for="i in data[0].short_screenshots" :key="i.id" :src="i.image" />
+                <img
+                    class="screenshots ma-2"
+                    v-for="i in data[0].short_screenshots"
+                    :key="i.id"
+                    :src="i.image"
+                    @click="OpenDialog(i.image)"
+                />
+
+                <v-dialog
+                    v-model="dialog"
+                    width="auto"
+                >
+                    <v-card width="60rem" style="border-radius: 20px;">
+                        <!-- <v-card-actions class="justify-end">
+                            <v-btn color="primary" fab @click="dialog = false" icon="mdi-close" />
+                        </v-card-actions> -->
+                        <v-img :src="image" alt="big screenthot"/>
+                    </v-card>
+                </v-dialog>
             </div>
         </div>
     </div>
@@ -705,5 +731,8 @@ export default{
     .screenshots{
         width: 400px;
     }
+}
+img{
+    border-radius: 10px;
 }
 </style>
