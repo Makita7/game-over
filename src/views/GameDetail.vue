@@ -3,6 +3,7 @@ import PillComp from '../components/PillComp.vue';
 import PRCard from '../components/PlatformRequirementCard.vue';
 import { useGameStore } from '../stores/GameStore';
 import { OrbitSpinner } from 'epic-spinners';
+import GameListDialog from '../components/GameListDialog.vue';
 
 export default{
     data(){
@@ -12,13 +13,18 @@ export default{
             image: '',
             dialog: false,
             platformReq: [],
-            loading: true
+            loading: true,
+            list: true,
+            input: '',
+            owned: true,
+            dialogList: false,
         }
     },
     components: {
         PillComp,
         PRCard,
         OrbitSpinner,
+        GameListDialog,
     },
     methods: {
         GetData(){
@@ -31,6 +37,9 @@ export default{
         },
         GetPlatformReq(){
             this.platformReq = this.data[0].platforms.filter(i => i.requirements_en !== null);
+        },
+        ToggleList(){
+            this.dialogList = !this.dialogList
         }
     },
     mounted() {
@@ -66,6 +75,19 @@ export default{
                 <v-img :src="data[0].background_image" class="img"/>
             </v-col>
             <v-col class="wrap">
+                <div class="d-flex between mb-2">
+                    <div class="d-flex" v-if="list">
+                        <p class="text-overline ml-2 mr-2">List:</p>
+                        <v-chip class="pill text-capitalize" @click="ToggleList()">list name
+                            <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" />
+                        </v-chip>
+                    </div>
+                    <div v-if="owned" class="d-flex">
+                        <p class="text-uppercase">owned</p>
+                        <v-icon class="ml-2">mdi-check-circle</v-icon>
+                    </div>
+
+                </div>
                 <div class="">
                     <p class="text-overline ml-2">Genre</p>
                     <PillComp
