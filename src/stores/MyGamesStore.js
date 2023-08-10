@@ -7,6 +7,7 @@ export const MyGamesStore = defineStore("MyGames", {
             myLists:[],
             MyListsGames: [],
             Owned: [],
+            e: null,
         }
     },
     actions: {
@@ -46,7 +47,10 @@ export const MyGamesStore = defineStore("MyGames", {
                     }
                 );
             } else {
-                console.log('list name already exists')
+                this.e = 'List name already exists';
+                setTimeout(() => {
+                    this.e = null;
+                }, 3000)
             }
 
         },

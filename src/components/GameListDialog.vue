@@ -78,7 +78,8 @@ export default {
                         type="input"
                         v-model="newListName"
                         @keydown.enter="saveNewList()"
-                        hint="Must be at least 4 characters long"
+                        :hint="!MyGames.e ? `Must be at least 4 characters long` : MyGames.e"
+                        :error="MyGames.e"
                     />
                     <v-btn
                         icon="mdi-plus"
