@@ -2,6 +2,7 @@
 import PillComp from '../components/PillComp.vue';
 import PRCard from '../components/PlatformRequirementCard.vue';
 import { useGameStore } from '../stores/GameStore';
+import { MyGamesStore } from '../stores/MyGamesStore';
 import { OrbitSpinner } from 'epic-spinners';
 import GameListDialog from '../components/GameListDialog.vue';
 
@@ -11,13 +12,16 @@ export default{
             store: useGameStore(),
             data: [],
             image: '',
-            dialog: false,
             platformReq: [],
             loading: true,
-            list: true,
-            input: '',
+            dialog: false,
+            listStore: MyGamesStore(),
+            list: false,
+            listItems: [],
             owned: true,
+            input: '',
             dialogList: false,
+            id: this.$route.params.id,
         }
     },
     components: {
@@ -40,16 +44,30 @@ export default{
         },
         ToggleList(){
             this.dialogList = !this.dialogList
-        }
+        },
+        GetLists(){
+            this.listItems = this.listStore.CheckGameInList(this.id);
+            if( this.listItems.length > 0 ){
+                this.list = true
+            }
+        },
     },
     mounted() {
         window.scroll({ top: 0})
         this.data = this.store.gameDetail.filter(i => i.id == this.$route.params.id);
         setTimeout(() => {
             this.GetPlatformReq();
+            this.GetLists();
             this.loading = false;
         }, 2000)
     },
+    watch: {
+        storedSavedLists: function(oldList, newList) {
+            if(oldList.value != newList.value){
+                this.GetLists();
+            }
+        }
+    }
 }
 </script>
 
@@ -77,8 +95,23 @@ export default{
             <v-col class="wrap">
                 <div class="d-flex between mb-2">
                     <div class="d-flex" v-if="list">
-                        <p class="text-overline ml-2 mr-2">List:</p>
-                        <v-chip class="pill text-capitalize" @click="ToggleList()">list name
+                        <p class="text-overline ml-2 mr-2">Lists:</p>
+                        <v-chip
+                            class="pill text-capitalize mr-2"
+                            @click="ToggleList()"
+                            v-for="l in listItems"
+                            :key="l"
+                        >
+                            {{ l }}
+                        </v-chip>
+                        <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" />
+                    </div>
+                    <div v-else>
+                        <v-chip
+                            class="pill text-capitalize mr-2"
+                            @click="ToggleList()"
+                        >
+                            <v-icon icon="mdi-plus"/>
                             <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" />
                         </v-chip>
                     </div>
