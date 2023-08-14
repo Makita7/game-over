@@ -23,7 +23,6 @@ import { useGameStore } from '../stores/GameStore';
         methods: {
             SetInfo(){
                 this.gamestore.SaveGameDetails(this.data);
-                // localStorage.setItem('cardDetail', JSON.stringify(this.data) );
             }
         }
     }

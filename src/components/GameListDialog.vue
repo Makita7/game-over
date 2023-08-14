@@ -13,34 +13,38 @@ export default {
     },
     props: {
         dialogList: Boolean,
+        gameName: String,
     },
     methods:{
         saveNewList(){
-            this.MyGames.AddNewList(this.newListName, this.id);
+            this.MyGames.AddNewList(this.newListName, this.id, this.gameName);
             this.CheckLists();
             this.newListName = '';
         },
         CheckLists(){
-            this.savedLists = this.MyGames.CheckGameInList(this.id);
+            this.savedLists = this.MyGames.CheckGameInList(this.id)
         },
         async Save(){
-            await this.MyGames.SaveChanges(this.savedLists, this.id);
+            await this.MyGames.SaveChanges(this.savedLists, this.id, this.gameName);
             await this.$emit('ToggleList');
         },
         something(){
             console.table(this.MyGames.MyListsGames);
             console.table(this.MyGames.MyListsGames.filter(i => i.games.includes(this.id)))
-        }
+        },
+
     },
     mounted(){
-        this.CheckLists();
+        this.MyGames.CheckGameInList(this.id);
     },
     watch: {
-        storeSavedLists: function(oldList, newList) {
-            if(oldList.value != newList.value){
+        MyGames: {
+            handler(oldData, newData){
                 this.CheckLists();
                 this.something()
-            }
+                console.log(newData)
+            },
+            deep: true,
         }
     }
 }
@@ -55,22 +59,6 @@ export default {
     >
         <v-card>
             <v-card-text>
-                <div v-if="MyGames.myLists.length != 0">
-                    <v-select
-                        v-model="savedLists"
-                        :items="MyGames.myLists"
-                        label="Game Lists"
-                        variant="outlined"
-                        multiple
-                        class="text-capitalize mt-2"
-                    />
-                    saved Lists: {{savedLists}} <br/>
-                    store lists: {{ MyGames.myLists }} <br/>
-                    store list games: {{ MyGames.MyListsGames }} <br/>
-                    {{ MyGames.MyListsGames.filter(i => i.games.includes(id)) }}
-
-                </div>
-                <v-divider class="mt-2 mb-2"/>
                 <div class="d-flex mt-4">
                     <v-text-field
                         class="mr-4"
@@ -79,7 +67,8 @@ export default {
                         v-model="newListName"
                         @keydown.enter="saveNewList()"
                         :hint="!MyGames.e ? `Must be at least 4 characters long` : MyGames.e"
-                        :error="MyGames.e"
+                        :error="MyGames.e?.bool"
+                        :error-messages="MyGames.e?.message"
                     />
                     <v-btn
                         icon="mdi-plus"
@@ -88,8 +77,22 @@ export default {
                         fab
                     />
                 </div>
+                <v-divider class="mt-2 mb-8"/>
+                <div v-if="MyGames.myLists.length != 0">
+                    <v-select
+                        v-model="savedLists"
+                        :items="MyGames.myLists"
+                        item-title="name"
+                        item-value="id"
+                        label="Game Lists"
+                        variant="outlined"
+                        multiple
+                        class="text-capitalize mt-2"
+                    />
+
+                </div>
             </v-card-text>
-            <v-card-actions class="justify-center">
+            <v-card-actions class="justify-center mb-4">
                 <v-btn color="primary" @click="$emit('ToggleList')" class="mr-4">Close Dialog</v-btn>
                 <v-btn @click="Save()" class="ml-4">Save</v-btn>
             </v-card-actions>

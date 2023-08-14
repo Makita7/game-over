@@ -104,7 +104,7 @@ export default{
                         >
                             {{ l }}
                         </v-chip>
-                        <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" />
+                        <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" :gameName="data[0].name" />
                     </div>
                     <div v-else>
                         <v-chip
@@ -112,7 +112,7 @@ export default{
                             @click="ToggleList()"
                         >
                             <v-icon icon="mdi-plus"/>
-                            <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" />
+                            <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" :gameName="data[0].name"/>
                         </v-chip>
                     </div>
                     <div v-if="owned" class="d-flex">
