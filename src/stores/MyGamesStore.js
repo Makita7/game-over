@@ -60,33 +60,30 @@ export const MyGamesStore = defineStore("MyGames", {
         },
         SaveChanges(list, id, gameName){
 
-            let res = this.MyListsGames.filter(i => i.games.map(g => g.id).includes(Number(id)));
-
-            // for(let i = 0; i < list.length; i++){
-            // }
-
-            //TODO: to add if it's already inside games then you do nothing but if it isn't then you add.
-
-
-            // check if the list
             let AddTo = this.MyListsGames.filter(i => list.includes(i.name));
 
-            // let MustDelete = this.MyListsGames.filter(i => !i.name.includes(list));
+            for(let i = 0; i < AddTo.length; i++){
+                const index = this.MyListsGames.indexOf(AddTo[i]);
+                const GameIndex = this.MyListsGames[index].games.map( g => g.id).indexOf(Number(id));
+
+                if(GameIndex === -1){
+                    this.MyListsGames[index].games.push({
+                        id: Number(id),
+                        name: gameName,
+                    });
+                }
+            }
+
+
             let MustDelete = this.MyListsGames.filter(i => !list.includes(i.name));
 
             for(let i = 0; i < MustDelete.length; i++){
                 const index = this.MyListsGames.indexOf(MustDelete[i]);
-                const Gameindex = this.MyListsGames[index].games.map(g => g.id).indexOf(Number(id)); //here is the error it always returns -1 even thought the games are there
+                const Gameindex = this.MyListsGames[index].games.map(g => g.id).indexOf(Number(id));
 
                 this.MyListsGames[index].games.splice( Gameindex, 1 );
             }
 
-            //TODO: use a map method with splice to find the elements with the id of must delete items
-
-
-
-            console.log(MustDelete)
-            console.log(this.MyListsGames)
 
         }
     }
