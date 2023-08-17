@@ -23,6 +23,7 @@ export default {
         },
         CheckLists(){
             this.savedLists = this.MyGames.CheckGameInList(this.id)
+            this.savedLists = this.savedLists.map(i => i.name)
         },
         async Save(){
             await this.MyGames.SaveChanges(this.savedLists, this.id, this.gameName);
@@ -31,7 +32,7 @@ export default {
 
     },
     mounted(){
-        this.MyGames.CheckGameInList(this.id);
+        this.CheckLists();
     },
     watch: {
         MyGames: {
@@ -83,8 +84,6 @@ export default {
                         multiple
                         class="text-capitalize mt-2"
                     />
-                    {{ savedLists }} <br/>
-                    <!-- {{ MyGames.MyListsGames[2].games }} -->
                 </div>
             </v-card-text>
             <v-card-actions class="justify-center mb-4">

@@ -1,5 +1,10 @@
 import { defineStore } from "pinia";
 
+/*  TODO: I have to save the owned and MyListsGames so that they aren't lost on refresh - Maybe localStorage
+    I have to check why the select list is not getting the data when using checklist
+*/
+
+
 export const MyGamesStore = defineStore("MyGames", {
     state: () => {
         return {
