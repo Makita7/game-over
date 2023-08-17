@@ -62,10 +62,11 @@ export default{
         }, 2000)
     },
     watch: {
-        storedSavedLists: function(oldList, newList) {
-            if(oldList.value != newList.value){
+        listStore: {
+            handler(oldData, newData){
                 this.GetLists();
-            }
+            },
+            deep: true,
         }
     }
 }
@@ -100,13 +101,13 @@ export default{
                             class="pill text-capitalize mr-2"
                             @click="ToggleList()"
                             v-for="l in listItems"
-                            :key="l"
+                            :key="l.id"
                         >
-                            {{ l }}
+                            {{ l.name }}
                         </v-chip>
                         <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" :gameName="data[0].name" />
                     </div>
-                    <div v-else>
+                    <div>
                         <v-chip
                             class="pill text-capitalize mr-2"
                             @click="ToggleList()"
@@ -156,8 +157,8 @@ export default{
 
         <div class="d-flex middle between">
             <div class="d-flex">
-                <p class="text-subtitle-1 mr-2">playtime: </p>
-                <v-chip class="pill">{{ data[0].playtime }}</v-chip>
+                <p class="text-subtitle-1 mr-2">Playtime: </p>
+                <v-chip class="pill">{{ data[0].playtime }} hours</v-chip>
             </div>
             <div class="d-flex">
                 <p class="text-subtitle-1 mr-2">Reviews: </p>

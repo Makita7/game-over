@@ -28,10 +28,6 @@ export default {
             await this.MyGames.SaveChanges(this.savedLists, this.id, this.gameName);
             await this.$emit('ToggleList');
         },
-        something(){
-            console.table(this.MyGames.MyListsGames);
-            console.table(this.MyGames.MyListsGames.filter(i => i.games.includes(this.id)))
-        },
 
     },
     mounted(){
@@ -41,8 +37,6 @@ export default {
         MyGames: {
             handler(oldData, newData){
                 this.CheckLists();
-                this.something()
-                console.log(newData)
             },
             deep: true,
         }
@@ -83,13 +77,14 @@ export default {
                         v-model="savedLists"
                         :items="MyGames.myLists"
                         item-title="name"
-                        item-value="id"
+                        item-value="name"
                         label="Game Lists"
                         variant="outlined"
                         multiple
                         class="text-capitalize mt-2"
                     />
-
+                    {{ savedLists }} <br/>
+                    <!-- {{ MyGames.MyListsGames[2].games }} -->
                 </div>
             </v-card-text>
             <v-card-actions class="justify-center mb-4">
