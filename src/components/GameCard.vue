@@ -69,19 +69,19 @@ import { MyGamesStore } from '../stores/MyGamesStore';
                 <v-spacer/>
 
 
-                <div @click="Toggle()" class="d-flex" style="align-items: center; height: 48px;"  v-if="owned">
-                    <p class="text-uppercase">owned</p>
-                    <v-icon class="ml-2">mdi-check-circle</v-icon>
+                <div @click="Toggle()" class="d-flex pointer mr-4 justify-end" style="align-items: center; height: 48px;"  v-if="owned">
+                    <p class="text-uppercase mr-0">owned</p>
+                    <v-icon class="ml-4">mdi-check-circle</v-icon>
                 </div>
 
 
                 <div
                     @click="Toggle()"
-                    class="d-flex"
+                    class="d-flex pointer justify-end"
                     style="align-items: center;"
                     v-else
                 >
-                    <p class="text-uppercase">not owned</p>
+                    <p class="text-uppercase mr-0">not owned</p>
                     <v-btn variant="text" class="iconSize" icon="mdi-plus-circle" />
                 </div>
 
@@ -213,5 +213,8 @@ import { MyGamesStore } from '../stores/MyGamesStore';
             }
         }
 
+        .pointer{
+            cursor: pointer;
+        }
     }
 </style>
