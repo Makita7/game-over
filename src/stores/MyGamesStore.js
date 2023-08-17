@@ -90,6 +90,23 @@ export const MyGamesStore = defineStore("MyGames", {
             }
 
 
-        }
+        },
+        TogglingOwned(id, gameName){
+            const isOwned = this.Owned.map(i => i.id).includes(id);
+
+            if(isOwned === false){
+                this.Owned.push({
+                    id: Number(id),
+                    name: gameName,
+                })
+            }else{
+                const index = this.Owned.indexOf(id);
+                this.Owned.splice(index, 1);
+            }
+        },
+        checkOwned(id){
+            const isOwned = this.Owned.map(i => i.id).includes(id);
+            return isOwned
+        },
     }
 })

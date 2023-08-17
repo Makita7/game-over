@@ -1,11 +1,17 @@
 <script>
 import PillComp from './PillComp.vue';
 import { useGameStore } from '../stores/GameStore';
+import { MyGamesStore } from '../stores/MyGamesStore';
+
+//TODO: onwed will be an array of objects, I will add the games into it and on mount I have to check if the game is saved as owned or not
 
     export default {
         data(){
             return{
                 gamestore: useGameStore(),
+                listStore: MyGamesStore(),
+                lists: null,
+                owned: null,
             }
         },
         props: {
@@ -23,6 +29,21 @@ import { useGameStore } from '../stores/GameStore';
         methods: {
             SetInfo(){
                 this.gamestore.SaveGameDetails(this.data);
+            },
+            Toggle(){
+                this.listStore.TogglingOwned(this.id, this.title)
+            }
+        },
+        mounted(){
+            this.lists = this.listStore.CheckGameInList(this.id);
+            this.owned = this.listStore.checkOwned(this.id)
+        },
+        watch: {
+            listStore: {
+                handler(){
+                    this.owned = this.listStore.checkOwned(this.id);
+                },
+                deep: true,
             }
         }
     }
@@ -32,13 +53,40 @@ import { useGameStore } from '../stores/GameStore';
     <div class="  fadingIn ms-1 mb-6 ">
         <div class="card">
             <div class="mt-2 mr-3 align-last pl-2">
-                <div class="label ml-3">
-                    <p class="text-capitalize font-italic">saved to List_Name</p>
+                <div class="ml-3" v-if="lists === undefined">
+                    <p><i>Saved to:</i></p>
+                    <div class="d-flex mt-1">
+                        <div class="label mr-2" v-for="l in lists" :key="l.id">
+                            <p class="text-capitalize font-italic">{{ l.name }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex ml-3" style="align-items: center;" v-else>
+                    <div class="label mr-2">
+                        <p class="text-capitalize font-italic">Not saved to any Lists</p>
+                    </div>
                 </div>
                 <v-spacer/>
-                <!-- <v-btn variant="text" class="iconSize" icon="mdi-close-circle" /> -->
-                <v-btn variant="text" class="iconSize" icon="mdi-plus-circle" />
+
+
+                <div @click="Toggle()" class="d-flex" style="align-items: center; height: 48px;"  v-if="owned">
+                    <p class="text-uppercase">owned</p>
+                    <v-icon class="ml-2">mdi-check-circle</v-icon>
+                </div>
+
+
+                <div
+                    @click="Toggle()"
+                    class="d-flex"
+                    style="align-items: center;"
+                    v-else
+                >
+                    <p class="text-uppercase">not owned</p>
+                    <v-btn variant="text" class="iconSize" icon="mdi-plus-circle" />
+                </div>
+
             </div>
+
 
             <div class="mr-auto ml-auto mt-2 imgContainer">
                 <img style="width:100%;" :src="img" :alt="title" />
@@ -93,13 +141,16 @@ import { useGameStore } from '../stores/GameStore';
 
                 </div>
             </div>
+
+            <div class="ma-2 d-flex" style="justify-content: space-evenly;">
+                <RouterLink :to="`/detail/${id}`" @click="SetInfo()" class="d-flex justify-end mt-1" style="text-decoration: none !important;">
+                    More Details
+                    <v-icon aria-hidden="false" class="ml-2">
+                        mdi-eye
+                    </v-icon>
+                </RouterLink>
+            </div>
         </div>
-        <RouterLink :to="`/detail/${id}`" @click="SetInfo()" class="d-flex justify-end mt-1" style="text-decoration: none !important;">
-            More Details
-            <v-icon aria-hidden="false" class="ml-2">
-                mdi-eye
-            </v-icon>
-        </RouterLink>
     </div>
 </template>
 
@@ -110,8 +161,6 @@ import { useGameStore } from '../stores/GameStore';
         border-radius: 15px;
         width: 28rem;
         min-height: 20rem;
-        z-index: -3;
-        position: relative;
         .wrap{
             flex-wrap: wrap;
         }
@@ -142,7 +191,7 @@ import { useGameStore } from '../stores/GameStore';
             overflow: hidden;
         }
         .iconSize{
-            font-size: 1.3rem;
+            font-size: 1rem;
         }
         .fadingIn{
             animation: fadeIn;
