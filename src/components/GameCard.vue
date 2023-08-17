@@ -53,8 +53,9 @@ import { MyGamesStore } from '../stores/MyGamesStore';
     <div class="  fadingIn ms-1 mb-6 ">
         <div class="card">
             <div class="mt-2 mr-3 align-last pl-2">
-                <div class="ml-3" v-if="lists === undefined">
-                    <p><i>Saved to:</i></p>
+                <!-- TODO: this isn't working... why? -->
+                <div class="ml-3 d-flex" style="align-items: center;" v-if="lists">
+                    <p class="mr-2"><i>Saved to:</i></p>
                     <div class="d-flex mt-1">
                         <div class="label mr-2" v-for="l in lists" :key="l.id">
                             <p class="text-capitalize font-italic">{{ l.name }}</p>
@@ -69,7 +70,12 @@ import { MyGamesStore } from '../stores/MyGamesStore';
                 <v-spacer/>
 
 
-                <div @click="Toggle()" class="d-flex pointer mr-4 justify-end" style="align-items: center; height: 48px;"  v-if="owned">
+                <div
+                    @click="Toggle()"
+                    class="d-flex pointer mr-4 justify-end"
+                    style="align-items: center; height: 48px;"
+                    v-if="owned"
+                >
                     <p class="text-uppercase mr-0">owned</p>
                     <v-icon class="ml-4">mdi-check-circle</v-icon>
                 </div>

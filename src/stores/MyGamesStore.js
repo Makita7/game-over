@@ -8,7 +8,6 @@ import { defineStore } from "pinia";
 export const MyGamesStore = defineStore("MyGames", {
     state: () => {
         return {
-            myGames: [],
             myLists:[],
             MyListsGames: [],
             Owned: [],
@@ -47,6 +46,7 @@ export const MyGamesStore = defineStore("MyGames", {
                         }]
                     }
                 );
+
             } else {
                 this.e = {
                     bool: true,
@@ -57,10 +57,12 @@ export const MyGamesStore = defineStore("MyGames", {
                 }, 3000)
             }
 
+            localStorage.setItem('myLists', JSON.stringify(this.myLists));
+            localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
+
         },
         CheckGameInList(id){
             let isSaved = this.MyListsGames.filter(i => i.games.map(g => g.id).includes(Number(id)))
-            // console.log(isSaved)
             return isSaved;
         },
         SaveChanges(list, id, gameName){
@@ -89,6 +91,7 @@ export const MyGamesStore = defineStore("MyGames", {
                 this.MyListsGames[index].games.splice( Gameindex, 1 );
             }
 
+            localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
 
         },
         TogglingOwned(id, gameName){
@@ -103,6 +106,9 @@ export const MyGamesStore = defineStore("MyGames", {
                 const index = this.Owned.indexOf(id);
                 this.Owned.splice(index, 1);
             }
+
+            localStorage.setItem('Owned', JSON.stringify(this.Owned));
+
         },
         checkOwned(id){
             const isOwned = this.Owned.map(i => i.id).includes(id);

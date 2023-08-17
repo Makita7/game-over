@@ -18,7 +18,7 @@ export default{
             listStore: MyGamesStore(),
             list: false,
             listItems: [],
-            owned: true,
+            owned: null,
             input: '',
             dialogList: false,
             id: this.$route.params.id,
@@ -51,10 +51,14 @@ export default{
                 this.list = true
             }
         },
+        Toggle(){
+            this.listStore.TogglingOwned(this.id, this.data[0].name)
+        },
     },
     mounted() {
         window.scroll({ top: 0})
         this.data = this.store.gameDetail.filter(i => i.id == this.$route.params.id);
+        this.owned = this.listStore.checkOwned(this.id)
         setTimeout(() => {
             this.GetPlatformReq();
             this.GetLists();
@@ -63,7 +67,7 @@ export default{
     },
     watch: {
         listStore: {
-            handler(oldData, newData){
+            handler(){
                 this.GetLists();
             },
             deep: true,
@@ -94,31 +98,58 @@ export default{
                 <v-img :src="data[0].background_image" class="img"/>
             </v-col>
             <v-col class="wrap">
-                <div class="d-flex between mb-2">
-                    <div class="d-flex" v-if="list">
-                        <p class="text-overline ml-2 mr-2">Lists:</p>
-                        <v-chip
-                            class="pill text-capitalize mr-2"
-                            @click="ToggleList()"
-                            v-for="l in listItems"
-                            :key="l.id"
-                        >
-                            {{ l.name }}
-                        </v-chip>
-                        <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" :gameName="data[0].name" />
+                <div class="d-flex between mb-2" style="align-items: center;">
+                    <div class="d-flex">
+                        <div class="d-flex" v-if="list">
+                            <p class="text-overline ml-2 mr-2">Lists:</p>
+                            <v-chip
+                                class="pill text-capitalize mr-2"
+                                @click="ToggleList()"
+                                v-for="l in listItems"
+                                :key="l.id"
+                            >
+                                {{ l.name }}
+                            </v-chip>
+                            <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" :gameName="data[0].name" />
+                        </div>
+                        <div>
+                            <v-chip
+                                class="pill text-capitalize mr-2"
+                                @click="ToggleList()"
+                            >
+                                <v-icon icon="mdi-plus"/>
+                                <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" :gameName="data[0].name"/>
+                            </v-chip>
+                        </div>
                     </div>
-                    <div>
-                        <v-chip
-                            class="pill text-capitalize mr-2"
-                            @click="ToggleList()"
-                        >
-                            <v-icon icon="mdi-plus"/>
-                            <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" :gameName="data[0].name"/>
-                        </v-chip>
-                    </div>
-                    <div v-if="owned" class="d-flex">
+
+
+                    <!-- <div v-if="owned" class="d-flex">
                         <p class="text-uppercase">owned</p>
                         <v-icon class="ml-2">mdi-check-circle</v-icon>
+                    </div> -->
+
+                    <!-- TODO: toggle not working here -->
+
+                    <div
+                        @click="Toggle()"
+                        class="d-flex pointer mr-4 justify-end"
+                        style="align-items: center; height: 48px;"
+                        v-if="owned"
+                    >
+                        <p class="text-uppercase mr-0">owned</p>
+                        <v-icon class="ml-4">mdi-check-circle</v-icon>
+                    </div>
+
+
+                    <div
+                        @click="Toggle()"
+                        class="d-flex pointer justify-end"
+                        style="align-items: center;"
+                        v-else
+                    >
+                        <p class="text-uppercase mr-0">not owned</p>
+                        <v-btn variant="text" class="iconSize" icon="mdi-plus-circle" />
                     </div>
 
                 </div>

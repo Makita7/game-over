@@ -1,10 +1,12 @@
 <script>
   import { RouterView } from 'vue-router';
   import NavigationDrawer from './components/NavigationDrawer.vue';
+import { MyGamesStore } from './stores/MyGamesStore';
 
   export default{
     data(){
       return{
+        listStore: MyGamesStore(),
       }
     },
     components: {
@@ -12,7 +14,18 @@
       RouterView,
     },
     methods: {
-    }
+    },
+    mounted(){
+      if(localStorage.getItem('myLists') !== null){
+        this.listStore.myLists = JSON.parse(localStorage.getItem('myLists'));
+      }
+      if(localStorage.getItem('MyListsGames') !== null){
+        this.listStore.MyListsGames = JSON.parse(localStorage.getItem('MyListsGames'));
+      }
+      if(localStorage.getItem('Owned') !== null){
+        this.listStore.Owned = JSON.parse(localStorage.getItem('Owned'));
+      }
+    },
   }
 </script>
 

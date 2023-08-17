@@ -36,7 +36,7 @@ export default {
     },
     watch: {
         MyGames: {
-            handler(oldData, newData){
+            handler(){
                 this.CheckLists();
             },
             deep: true,
