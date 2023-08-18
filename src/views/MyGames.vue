@@ -24,7 +24,7 @@ export default {
         <div class="d-flex cont">
             <div class="card" v-for="i in listStore.Owned" :key="i.id">
                 <div class="d-flex topCard mb-3">
-                    <p>{{ i.name }}</p>
+                    <p class="text-h6">{{ i.name }}</p>
                     <v-btn
                         density="comfortable"
                         class=""
