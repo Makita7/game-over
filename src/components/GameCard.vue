@@ -2,6 +2,7 @@
 import PillComp from './PillComp.vue';
 import { useGameStore } from '../stores/GameStore';
 import { MyGamesStore } from '../stores/MyGamesStore';
+import SeeMoreDetailBtn from './SeeMoreDetailBtn.vue';
 
 //TODO: onwed will be an array of objects, I will add the games into it and on mount I have to check if the game is saved as owned or not
 
@@ -25,13 +26,19 @@ import { MyGamesStore } from '../stores/MyGamesStore';
         },
         components:{
             PillComp,
+                SeeMoreDetailBtn,
         },
         methods: {
             SetInfo(){
                 this.gamestore.SaveGameDetails(this.data);
             },
             Toggle(){
-                this.listStore.TogglingOwned(this.id, this.title)
+                this.listStore.TogglingOwned(
+                    this.id,
+                    this.title,
+                    this.img,
+                    this.data,
+                )
             }
         },
         mounted(){
@@ -148,14 +155,8 @@ import { MyGamesStore } from '../stores/MyGamesStore';
                 </div>
             </div>
 
-            <div class="ma-2 d-flex" style="justify-content: space-evenly;">
-                <RouterLink :to="`/detail/${id}`" @click="SetInfo()" class="d-flex justify-end mt-1" style="text-decoration: none !important;">
-                    More Details
-                    <v-icon aria-hidden="false" class="ml-2">
-                        mdi-eye
-                    </v-icon>
-                </RouterLink>
-            </div>
+            <SeeMoreDetailBtn :id="id" :data="data"/>
+
         </div>
     </div>
 </template>

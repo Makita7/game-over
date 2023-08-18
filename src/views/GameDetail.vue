@@ -52,7 +52,12 @@ export default{
             }
         },
         Toggle(){
-            this.listStore.TogglingOwned(this.id, this.data[0].name)
+            this.listStore.TogglingOwned(
+                this.id,
+                this.data[0].name,
+                this.data[0].background_image,
+                this.data[0],
+            )
         },
     },
     mounted() {

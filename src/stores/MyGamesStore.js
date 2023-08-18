@@ -94,16 +94,18 @@ export const MyGamesStore = defineStore("MyGames", {
             localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
 
         },
-        TogglingOwned(id, gameName){
+        TogglingOwned(id, gameName, img, data){
             const isOwned = this.Owned.map(i => i.id).includes(id);
 
             if(isOwned === false){
                 this.Owned.push({
                     id: Number(id),
                     name: gameName,
+                    img: img,
+                    data: data,
                 })
             }else{
-                const index = this.Owned.indexOf(id);
+                const index = this.Owned.map(i => i.id).indexOf(id);
                 this.Owned.splice(index, 1);
             }
 
