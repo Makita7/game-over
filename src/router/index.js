@@ -15,9 +15,9 @@ const router = createRouter({
       component: () => import('../views/MyGames.vue'),
     },
     {
-      path: '/wishlist',
-      name: 'wishlist',
-      component: () => import('../views/MyWishlists.vue'),
+      path: '/lists',
+      name: 'lists',
+      component: () => import('../views/MyLists.vue'),
     },
     {
       path: '/preferences',

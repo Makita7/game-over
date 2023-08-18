@@ -15,7 +15,7 @@
 
 <template>
     <div>
-        <h1>wishlists</h1>
+        <p class="text-h3">Lists</p>
         {{ listStore.MyListsGames }}
     </div>
 </template>

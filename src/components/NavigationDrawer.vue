@@ -51,9 +51,9 @@
                 />
                 <v-list-item
                     prepend-icon="mdi-format-list-bulleted"
-                    title="Wishlist"
-                    value="wishlist"
-                    to="/wishlist"
+                    title="Lists"
+                    value="lists"
+                    to="/lists"
                 />
                 <v-list-item
                     prepend-icon="mdi-cog"
