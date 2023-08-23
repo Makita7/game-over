@@ -15,7 +15,7 @@ export const MyGamesStore = defineStore("MyGames", {
         }
     },
     actions: {
-        AddNewList(name, id, gameName){
+        AddNewList(name, id, gameName, data){
             let CAP = ''
             const NewListID = "id" + Math.random().toString(16).slice(2)
 
@@ -43,6 +43,7 @@ export const MyGamesStore = defineStore("MyGames", {
                         games: [{
                             id: Number(id),
                             name: gameName,
+                            data: data
                         }]
                     }
                 );
@@ -65,7 +66,7 @@ export const MyGamesStore = defineStore("MyGames", {
             let isSaved = this.MyListsGames.filter(i => i.games.map(g => g.id).includes(Number(id)))
             return isSaved;
         },
-        SaveChanges(list, id, gameName){
+        SaveChanges(list, id, gameName, data){
 
             let AddTo = this.MyListsGames.filter(i => list.includes(i.name));
 
@@ -77,6 +78,7 @@ export const MyGamesStore = defineStore("MyGames", {
                     this.MyListsGames[index].games.push({
                         id: Number(id),
                         name: gameName,
+                        data: data,
                     });
                 }
             }
@@ -115,6 +117,19 @@ export const MyGamesStore = defineStore("MyGames", {
         checkOwned(id){
             const isOwned = this.Owned.map(i => i.id).includes(id);
             return isOwned
+        },
+        DeletingGameList(listId, id){
+
+            let index = null;
+
+            const step1 = this.MyListsGames.map(l => l.id.indexOf(listId))
+            index = step1.filter( i => i >= 0 )
+
+            const Gameindex = this.MyListsGames[index].games.map(g => g.id).indexOf(Number(id));
+
+            this.MyListsGames[index].games.splice( Gameindex, 1 );
+
+            localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
         },
     }
 })

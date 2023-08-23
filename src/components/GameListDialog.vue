@@ -14,10 +14,11 @@ export default {
     props: {
         dialogList: Boolean,
         gameName: String,
+        data: Object,
     },
     methods:{
         saveNewList(){
-            this.MyGames.AddNewList(this.newListName, this.id, this.gameName);
+            this.MyGames.AddNewList(this.newListName, this.id, this.gameName, this.data);
             this.CheckLists();
             this.newListName = '';
         },
@@ -26,7 +27,7 @@ export default {
             this.savedLists = this.savedLists.map(i => i.name)
         },
         async Save(){
-            await this.MyGames.SaveChanges(this.savedLists, this.id, this.gameName);
+            await this.MyGames.SaveChanges(this.savedLists, this.id, this.gameName, this.data);
             await this.$emit('ToggleList');
         },
 

@@ -30,7 +30,7 @@ import { MyGamesStore } from './stores/MyGamesStore';
 </script>
 
 <template>
-    <div class="img">
+    <div class="img app">
 
       <div class="d-flex">
         <img src="./assets/assets_logo.png" class="logo mt-4 ml-auto mr-auto" />
@@ -40,10 +40,15 @@ import { MyGamesStore } from './stores/MyGamesStore';
       <div style="margin-left: 56px;" class="pa-6 index">
         <RouterView />
       </div>
-    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
+
+.app{
+  font-family: "Roboto", sans-serif !important;
+}
+
 ::v-deep{
     .wrap{
       flex-wrap: wrap;
