@@ -13,6 +13,7 @@
         props: {
             editDialog: Boolean,
             listName: String,
+            id: Number,
         },
         methods:{
             DeleteList(){
@@ -25,7 +26,12 @@
             },
             saveNewList(){
                 this.editName = false;
-            }
+            },
+            Save(){
+                setTimeout(() => {
+                    this.$emit('ToggleEdit')
+                }, 1000)
+            },
         },
         mounted(){
         },
@@ -33,13 +39,14 @@
 
 </script>
 
+// TODO: I need to pass id to this component so you can select thelist in the pinia store and change the name of list or be able to clear the games
+
 <template>
     <v-dialog
         v-if="editDialog"
         activator="parent"
         width="50rem"
     >
-                {{ NewListName }}
         <v-card>
             <v-card-text>
                 <div class="d-flex mt-4" v-if="editName">
@@ -47,7 +54,7 @@
                         class="mr-4"
                         label="New List"
                         type="input"
-                        v-model="newListName"
+                        v-model="NewListName"
                         @keydown.enter="saveNewList()"
                     />
                     <v-btn
@@ -59,7 +66,7 @@
                 </div>
 
                 <div class="d-flex mb-2 mt-4 listName" v-else @click="editName=true">
-                    <p class="text-h6 ma-4" v-if="NewlistName">{{ NewlistName }}</p>
+                    <p class="text-h6 ma-4" v-if="NewListName">{{ NewListName }}</p>
                     <p class="text-h6 ma-4" v-else>{{ listName }}</p>
                 </div>
 
