@@ -72,14 +72,16 @@ export const MyGamesStore = defineStore("MyGames", {
 
             for(let i = 0; i < AddTo.length; i++){
                 const index = this.MyListsGames.indexOf(AddTo[i]);
-                const GameIndex = this.MyListsGames[index].games.map( g => g.id).indexOf(Number(id));
+                if(index !== -1){
+                    const GameIndex = this.MyListsGames[index].games.map( g => g.id).indexOf(Number(id));
 
-                if(GameIndex === -1){
-                    this.MyListsGames[index].games.push({
-                        id: Number(id),
-                        name: gameName,
-                        data: data,
-                    });
+                    if(GameIndex === -1){
+                        this.MyListsGames[index].games.push({
+                            id: Number(id),
+                            name: gameName,
+                            data: data,
+                        });
+                    }
                 }
             }
 
@@ -88,11 +90,12 @@ export const MyGamesStore = defineStore("MyGames", {
 
             for(let i = 0; i <= MustDelete.length; i++){
                 const index = this.MyListsGames.indexOf(MustDelete[i]);
-                const Gameindex = this.MyListsGames[index].games.map(g => g.id).indexOf(Number(id));
-                const len = MustDelete.length
+                if(index !== -1){
+                    const Gameindex = this.MyListsGames[index].games.map(g => g.id).indexOf(Number(id));
 
-                if( Gameindex !== -1 ){
-                    this.MyListsGames[index].games.splice( Gameindex, 1 );
+                    if( Gameindex !== -1 ){
+                        this.MyListsGames[index].games.splice( Gameindex, 1 );
+                    }
                 }
             }
 

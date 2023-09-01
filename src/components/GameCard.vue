@@ -4,8 +4,6 @@ import { useGameStore } from '../stores/GameStore';
 import { MyGamesStore } from '../stores/MyGamesStore';
 import SeeMoreDetailBtn from './SeeMoreDetailBtn.vue';
 
-//TODO: onwed will be an array of objects, I will add the games into it and on mount I have to check if the game is saved as owned or not
-
     export default {
         data(){
             return{
@@ -13,6 +11,8 @@ import SeeMoreDetailBtn from './SeeMoreDetailBtn.vue';
                 listStore: MyGamesStore(),
                 lists: null,
                 owned: null,
+                dialogList: false,
+                listItems: [],
             }
         },
         props: {
@@ -39,7 +39,10 @@ import SeeMoreDetailBtn from './SeeMoreDetailBtn.vue';
                     this.img,
                     this.data,
                 )
-            }
+            },
+            ToggleList(){
+                this.dialogList = !this.dialogList
+            },
         },
         mounted(){
             this.lists = this.listStore.CheckGameInList(this.id);
@@ -49,6 +52,7 @@ import SeeMoreDetailBtn from './SeeMoreDetailBtn.vue';
             listStore: {
                 handler(){
                     this.owned = this.listStore.checkOwned(this.id);
+                    this.lists = this.listStore.CheckGameInList(this.id);
                 },
                 deep: true,
             }
@@ -60,19 +64,20 @@ import SeeMoreDetailBtn from './SeeMoreDetailBtn.vue';
     <div class="  fadingIn ms-1 mb-6 ">
         <div class="card">
             <div class="mt-2 mr-3 align-last pl-2">
-                <!-- TODO: this isn't working... why? -->
-                <div class="ml-3 d-flex" style="align-items: center;" v-if="lists">
+                <div class="ml-3 d-flex" style="align-items: center;" v-if="lists?.length > 0" >
                     <p class="mr-2"><i>Saved to:</i></p>
                     <div class="d-flex mt-1">
-                        <div class="label mr-2" v-for="l in lists" :key="l.id">
+                        <div class="label mr-2" v-for="l in lists" :key="l.id" @click="ToggleList()">
                             <p class="text-capitalize font-italic">{{ l.name }}</p>
                         </div>
+                        <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" :gameName="title" :data="data" />
                     </div>
                 </div>
                 <div class="d-flex ml-3" style="align-items: center;" v-else>
-                    <div class="label mr-2">
+                    <div class="label mr-2" @click="ToggleList()">
                         <p class="text-capitalize font-italic">Not saved to any Lists</p>
                     </div>
+                    <GameListDialog @toggle-list="ToggleList" :dialogList="dialogList" :gameName="title" :data="data" />
                 </div>
                 <v-spacer/>
 

@@ -53,7 +53,7 @@ export default {
     <v-dialog
         v-if="dialogList"
         activator="parent"
-        width="80%"
+        width="50rem"
     >
         <v-card>
             <v-card-text>
