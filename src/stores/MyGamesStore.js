@@ -86,11 +86,14 @@ export const MyGamesStore = defineStore("MyGames", {
 
             let MustDelete = this.MyListsGames.filter(i => !list.includes(i.name));
 
-            for(let i = 0; i < MustDelete.length; i++){
+            for(let i = 0; i <= MustDelete.length; i++){
                 const index = this.MyListsGames.indexOf(MustDelete[i]);
                 const Gameindex = this.MyListsGames[index].games.map(g => g.id).indexOf(Number(id));
+                const len = MustDelete.length
 
-                this.MyListsGames[index].games.splice( Gameindex, 1 );
+                if( Gameindex !== -1 ){
+                    this.MyListsGames[index].games.splice( Gameindex, 1 );
+                }
             }
 
             localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
@@ -115,7 +118,8 @@ export const MyGamesStore = defineStore("MyGames", {
 
         },
         checkOwned(id){
-            const isOwned = this.Owned.map(i => i.id).includes(id);
+            const nId = Number(id)
+            const isOwned = this.Owned.map(i => i.id).includes(nId);
             return isOwned
         },
         DeletingGameList(listId, id){

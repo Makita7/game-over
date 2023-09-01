@@ -26,9 +26,11 @@ export default {
             this.savedLists = this.MyGames.CheckGameInList(this.id)
             this.savedLists = this.savedLists.map(i => i.name)
         },
-        async Save(){
-            await this.MyGames.SaveChanges(this.savedLists, this.id, this.gameName, this.data);
-            await this.$emit('ToggleList');
+        Save(){
+            this.MyGames.SaveChanges(this.savedLists, this.id, this.gameName, this.data);
+            setTimeout(() => {
+                this.$emit('ToggleList');
+            }, 2000)
         },
 
     },

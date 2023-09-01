@@ -26,7 +26,7 @@ import SeeMoreDetailBtn from './SeeMoreDetailBtn.vue';
         },
         components:{
             PillComp,
-                SeeMoreDetailBtn,
+            SeeMoreDetailBtn,
         },
         methods: {
             SetInfo(){

@@ -21,7 +21,7 @@ export default{
             owned: null,
             input: '',
             dialogList: false,
-            id: this.$route.params.id,
+            id: Number(this.$route.params.id),
         }
     },
     components: {
@@ -74,6 +74,7 @@ export default{
         listStore: {
             handler(){
                 this.GetLists();
+                this.owned = this.listStore.checkOwned(this.id);
             },
             deep: true,
         }
@@ -92,6 +93,20 @@ export default{
     </div>
 
     <div class="details" v-else>
+        <router-link
+            to="/"
+            custom
+            v-slot="{ navigate }"
+        >
+            <v-btn
+                @click="navigate"
+                class='elevation-0 mb-3'
+                style="margin-top: -4rem;"
+                text
+                icon="mdi-arrow-left"
+            />
+        </router-link>
+
         <div class="d-flex mb-2 middle">
             <p class="text-h3">{{ data[0].name }}</p>
             <v-spacer/>
@@ -128,14 +143,6 @@ export default{
                         </div>
                     </div>
 
-
-                    <!-- <div v-if="owned" class="d-flex">
-                        <p class="text-uppercase">owned</p>
-                        <v-icon class="ml-2">mdi-check-circle</v-icon>
-                    </div> -->
-
-                    <!-- TODO: toggle not working here -->
-
                     <div
                         @click="Toggle()"
                         class="d-flex pointer mr-4 justify-end"
@@ -145,7 +152,6 @@ export default{
                         <p class="text-uppercase mr-0">owned</p>
                         <v-icon class="ml-4">mdi-check-circle</v-icon>
                     </div>
-
 
                     <div
                         @click="Toggle()"

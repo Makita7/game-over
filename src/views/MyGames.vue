@@ -1,6 +1,6 @@
 
 <script>
-import SeeMoreDetailBtn from '../components/SeeMoreDetailBtn.vue'
+import SeeMoreDetailBtn from '../components/SeeMoreDetailBtn.vue';
 import { MyGamesStore } from '../stores/MyGamesStore'
 
 export default {

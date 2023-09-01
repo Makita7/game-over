@@ -24,7 +24,7 @@ import { useGameStore } from '../stores/GameStore';
 <template>
     <div class="ma-2 d-flex" style="justify-content: space-evenly;">
         <RouterLink :to="`/detail/${id}`" @click="SetInfo()" class="d-flex justify-end mt-1" style="text-decoration: none !important;">
-            More Details
+            Details
             <v-icon aria-hidden="false" class="ml-2">
                 mdi-eye
             </v-icon>
