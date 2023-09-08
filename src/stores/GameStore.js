@@ -6,6 +6,8 @@ export const useGameStore = defineStore("GameDetails", {
         return {
             gameDetail: [],
             currentpage: 'https://api.rawg.io/api/games?key=d151343fa3374641b091728b469565b0',
+            username: null,
+            profileimage: null,
         };
     },
     actions: {
