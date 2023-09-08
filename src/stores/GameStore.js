@@ -17,5 +17,11 @@ export const useGameStore = defineStore("GameDetails", {
         SetPage(link){
             this.currentpage = link
         },
+        SetUsername(name){
+            this.username = name
+        },
+        SetprofileImg(img){
+            this.profileimage = img
+        },
     }
 })
