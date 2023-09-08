@@ -1,3 +1,18 @@
+<script>
+
+    export default {
+        data(){
+            return{
+
+            }
+        },
+        mounted(){
+            window.scroll({ top: 0})
+        }
+    }
+
+</script>
+
 <template>
     <div>
         <p class="text-h3">Preferences</p>

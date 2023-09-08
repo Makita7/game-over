@@ -57,6 +57,7 @@
             },
         },
         mounted() {
+            window.scroll({ top: 0})
             this.link = this.store.currentpage;
             if(sessionStorage.getItem('games') === true){
                 this.data = sessionStorage.getItem('games');

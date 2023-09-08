@@ -138,5 +138,26 @@ export const MyGamesStore = defineStore("MyGames", {
 
             localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
         },
+        // LISTS METHODS:
+        ListEdit(id, rename, clear, newName){
+            const exists = this.MyListsGames.map(l => l.id).includes(id)
+
+            if(exists !== -1){
+                for(let i = 0; i < this.MyListsGames.length; i++){
+                    if(rename === true){
+                        if(this.MyListsGames[i].id == id){
+                            this.MyListsGames[i].name = newName;
+                        }
+                    }
+                    if(clear === true){
+                        if(this.MyListsGames[i].id == id){
+                            this.MyListsGames[i].games = []
+                        }
+                    }
+                }
+
+                localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
+            }
+        },
     }
 })

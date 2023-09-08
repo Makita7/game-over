@@ -12,6 +12,9 @@ export default {
     components: {
         SeeMoreDetailBtn
     },
+    mounted() {
+        window.scroll({ top: 0})
+    }
 }
 
 </script>

@@ -27,6 +27,9 @@
         components: {
             SeeMoreDetailBtn,
             EditListDialog,
+        },
+        mounted(){
+            window.scroll({ top: 0})
         }
     }
 </script>
@@ -47,7 +50,7 @@
                         icon="mdi-pencil"
                         @click="ToggleEdit()"
                     />
-                    <EditListDialog :editDialog="editDialog" :listName="l.name" />
+                    <EditListDialog @toggle-edit="ToggleEdit" :editDialog="editDialog" :listName="l.name" :id="l.id" />
                 </div>
 
                 <div class="d-flex" @mousewheel="scrollX" ref="scroll_container" v-if="l.games.length != 0">

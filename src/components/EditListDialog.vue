@@ -1,36 +1,46 @@
 
 <script>
+import { MyGamesStore } from '../stores/MyGamesStore';
 
     export default {
         data(){
             return{
+                listStore: MyGamesStore(),
                 NewListName: null,
                 editName: false,
                 clear: false,
+                clearSave: false,
                 clearing: false,
             }
         },
         props: {
             editDialog: Boolean,
             listName: String,
-            id: Number,
+            id: String,
         },
         methods:{
             DeleteList(){
                 this.clear = false;
+                this.clearSave = true;
                 this.clearing = true;
 
                 setTimeout(() => {
                     this.clearing = false;
-                }, 2000)
+                }, 1000)
             },
             saveNewList(){
                 this.editName = false;
             },
             Save(){
+                let rename = false;
+                if(this.NewListName !== null && this.NewListName !== this.listName){
+                    rename = true
+                }
+
+                this.listStore.ListEdit(this.id, rename, this.clearSave, this.NewListName,)
                 setTimeout(() => {
-                    this.$emit('ToggleEdit')
-                }, 1000)
+                    this.$emit('ToggleEdit');
+                }, 500)
             },
         },
         mounted(){
@@ -39,7 +49,7 @@
 
 </script>
 
-// TODO: I need to pass id to this component so you can select thelist in the pinia store and change the name of list or be able to clear the games
+// TODO: I need to pass id to this component so you can select the list in the pinia store and change the name of list or be able to clear the games, then go to the list view and make it watch for changes
 
 <template>
     <v-dialog
