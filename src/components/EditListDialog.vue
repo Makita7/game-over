@@ -9,7 +9,6 @@ import { MyGamesStore } from '../stores/MyGamesStore';
                 NewListName: null,
                 editName: false,
                 clear: false,
-                clearSave: false,
                 clearing: false,
             }
         },
@@ -19,28 +18,24 @@ import { MyGamesStore } from '../stores/MyGamesStore';
             id: String,
         },
         methods:{
-            DeleteList(){
+            ClearList(){
                 this.clear = false;
-                this.clearSave = true;
+                const clearSave = true;
                 this.clearing = true;
+                this.listStore.ClearListGames(this.id, clearSave)
 
                 setTimeout(() => {
                     this.clearing = false;
                 }, 1000)
             },
-            saveNewList(){
-                this.editName = false;
-            },
-            Save(){
+            SaveListName(){
                 let rename = false;
                 if(this.NewListName !== null && this.NewListName !== this.listName){
                     rename = true
                 }
 
-                this.listStore.ListEdit(this.id, rename, this.clearSave, this.NewListName,)
-                setTimeout(() => {
-                    this.$emit('ToggleEdit');
-                }, 500)
+                this.listStore.ListEditName(this.id, rename, this.NewListName,)
+                this.editName = false;
             },
         },
         mounted(){
@@ -59,13 +54,17 @@ import { MyGamesStore } from '../stores/MyGamesStore';
     >
         <v-card>
             <v-card-text>
-                <div class="d-flex mt-4" v-if="editName">
+                <div class="d-flex justify-end">
+                    <v-btn @click="$emit('ToggleEdit')" class="mr-4" icon="mdi-close" size="small" />
+                </div>
+
+                <div class="d-flex" v-if="editName">
                     <v-text-field
-                        class="mr-4"
+                        class="mr-4 "
                         label="New List"
                         type="input"
                         v-model="NewListName"
-                        @keydown.enter="saveNewList()"
+                        @keydown.enter="SaveListName()"
                     />
                     <v-btn
                         icon="mdi-close"
@@ -73,39 +72,41 @@ import { MyGamesStore } from '../stores/MyGamesStore';
                         @click="editName=false"
                         fab
                     />
+                    <v-btn
+                        icon="mdi-check"
+                        class="mr-2 mt-1"
+                        @click="SaveListName()"
+                        fab
+                    />
                 </div>
 
-                <div class="d-flex mb-2 mt-4 listName" v-else @click="editName=true">
-                    <p class="text-h6 ma-4" v-if="NewListName">{{ NewListName }}</p>
-                    <p class="text-h6 ma-4" v-else>{{ listName }}</p>
+                <div class="d-flex mb-4 listName" v-else @click="editName=true">
+                    <p class="text-h6 ma-4 text-uppercase" v-if="NewListName">{{ NewListName }}</p>
+                    <p class="text-h6 ma-4 text-uppercase" v-else>{{ listName }}</p>
                 </div>
 
                 <v-divider class="mt-2 mb-8"/>
 
-                <div class="d-flex justify-center" v-if="!clear && !clearing" @click="clear=true">
+                <div class="d-flex justify-center mb-4" v-if="!clear && !clearing" @click="clear=true">
                     <v-btn size="large" class="clear elevation-0">Clear All Games?</v-btn>
                 </div>
 
-                <div class="mt-4" v-if="clear">
+                <div class="mt-4  mb-4" v-if="clear">
                     <div class="sad">
                         <p class="text mt-8 text-h5 text-uppercase font-bold">Are you sure?</p>
                         <img src="https://media2.giphy.com/media/7SF5scGB2AFrgsXP63/giphy.gif" alt="sad pikachu gif">
                     </div>
                     <div class="sad mt-2">
-                        <v-btn class="clear" @click="DeleteList()">Yes</v-btn>
+                        <v-btn class="clear" @click="ClearList()">Yes</v-btn>
                         <v-btn class="clear" @click="clear=false">No</v-btn>
                     </div>
                 </div>
 
-                <div class="mt-4 sad" v-if="clearing">
+                <div class="mt-4 mb-6 sad" v-if="clearing">
                     <img src="https://media.tenor.com/-TqZlozEieYAAAAC/pikachu-sad.gif" alt="sad pikachu gif">
                 </div>
 
             </v-card-text>
-            <v-card-actions class="justify-center mb-2 mt-4">
-                <v-btn color="primary" @click="$emit('ToggleEdit')" class="mr-4">Close Dialog</v-btn>
-                <v-btn @click="Save()" class="ml-4">Save</v-btn>
-            </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
@@ -141,5 +142,8 @@ import { MyGamesStore } from '../stores/MyGamesStore';
         img{
             border-radius: 10px;
         }
+    }
+    .v-text-field input {
+        text-transform: uppercase;
     }
 </style>

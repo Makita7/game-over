@@ -139,7 +139,7 @@ export const MyGamesStore = defineStore("MyGames", {
             localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
         },
         // LISTS METHODS:
-        ListEdit(id, rename, clear, newName){
+        ListEditName(id, rename, newName){
             const exists = this.MyListsGames.map(l => l.id).includes(id)
 
             if(exists !== -1){
@@ -149,6 +149,16 @@ export const MyGamesStore = defineStore("MyGames", {
                             this.MyListsGames[i].name = newName;
                         }
                     }
+                }
+
+                localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
+            }
+        },
+        ClearListGames(id, clear){
+            const exists = this.MyListsGames.map(l => l.id).includes(id)
+
+            if(exists !== -1){
+                for(let i = 0; i < this.MyListsGames.length; i++){
                     if(clear === true){
                         if(this.MyListsGames[i].id == id){
                             this.MyListsGames[i].games = []
@@ -158,6 +168,7 @@ export const MyGamesStore = defineStore("MyGames", {
 
                 localStorage.setItem('MyListsGames', JSON.stringify(this.MyListsGames));
             }
-        },
+
+        }
     }
 })
