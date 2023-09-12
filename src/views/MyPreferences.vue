@@ -17,14 +17,14 @@ import { useGameStore } from '../stores/GameStore';
         mounted() {
             window.scroll({ top: 0})
             if(this.pref.username !== null){
-                this.username = this.pref.username,
-                this.img = `../assets/avatars/avatars_${this.pref.profileimage}.png`
+                this.username = this.pref.username;
+                this.img = this.pref.profile_image;
             }
         },
         methods: {
             ToggleDialog(){
                 this.dialog = !this.dialog
-            }
+            },
         }
     }
 
@@ -34,15 +34,19 @@ import { useGameStore } from '../stores/GameStore';
     <div>
         <p class="text-h3">Preferences</p>
         <v-divider class="mt-4 mb-2 mx-2" />
-        <div v-if="username" class="d-flex justify-center">
-            <img :alt="username" :src="img"/>
-            <p>{{ username }}</p>
-            <v-btn @click="ToggleDialog()">Change</v-btn>
+        <div v-if="username" class="">
+            {{ img }}
+            <div class="d-flex justify-center">
+                <img :alt="username" :src="img" class="mx-auto"/>
+            </div>
+            <p class="text-h4 text-center mt-4">{{ username }}</p>
+            <div class="d-flex justify-center">
+                <v-btn @click="ToggleDialog()" size="small" class="mt-2">Change</v-btn>
+            </div>
             <EditPrefDialog
                 @ToggleDialog="ToggleDialog"
                 :dialog="dialog"
                 :img="img"
-                :user="username"
             />
         </div>
 

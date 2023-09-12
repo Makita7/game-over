@@ -1,11 +1,30 @@
 <script>
+    import { useGameStore } from '../stores/GameStore';
+
     export default {
         data () {
             return {
                 drawer: true,
                 rail: true,
+                pref: useGameStore,
+                img: null,
+                username: null
             }
         },
+        methods: {
+            GetData(){
+                this.username = this.pref.username;
+                this.img = `../assets/avatars/avatars_${this.pref.profile_image}.png`;
+            }
+        },
+        watch: {
+            pref: {
+                handler(){
+                    this.username = this.pref.username;
+                    this.img = this.pref.profile_image;
+                }
+            }
+        }
     }
 </script>
 
@@ -21,8 +40,25 @@
             color="secondary"
         >
             <v-list-item
-                prepend-avatar="https://i.pinimg.com/564x/65/3b/52/653b529d011d70aa018179c25c89072a.jpg"
-                title="Username"
+                v-if="username"
+                :prepend-avatar="img || '../assets/avatars/avatars_1.png'"
+                :title="username"
+                nav
+            >
+            <template v-slot:append>
+                <v-btn
+                variant="text"
+                icon="mdi-chevron-left"
+                @click.stop="rail = !rail"
+                ></v-btn>
+            </template>
+            </v-list-item>
+
+
+            <v-list-item
+                v-else
+                prepend-avatar="../assets/avatars/avatars_1.png"
+                title="No username"
                 nav
             >
             <template v-slot:append>

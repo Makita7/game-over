@@ -1,12 +1,14 @@
 <script>
   import { RouterView } from 'vue-router';
   import NavigationDrawer from './components/NavigationDrawer.vue';
-import { MyGamesStore } from './stores/MyGamesStore';
+  import { MyGamesStore } from './stores/MyGamesStore';
+  import { useGameStore } from './stores/GameStore';
 
   export default{
     data(){
       return{
         listStore: MyGamesStore(),
+        pref: useGameStore(),
       }
     },
     components: {
@@ -25,6 +27,7 @@ import { MyGamesStore } from './stores/MyGamesStore';
       if(localStorage.getItem('Owned') !== null){
         this.listStore.Owned = JSON.parse(localStorage.getItem('Owned'));
       }
+      this.pref.GetUserData();
     },
   }
 </script>
