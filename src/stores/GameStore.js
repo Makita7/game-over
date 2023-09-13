@@ -19,6 +19,7 @@ export const useGameStore = defineStore("GameDetails", {
         },
         SetUsername(name){
             this.username = name;
+            localStorage.setItem('username', this.username);
         },
         SetprofileImg(img){
             this.profile_image = img;
@@ -29,12 +30,8 @@ export const useGameStore = defineStore("GameDetails", {
             localStorage.setItem('username', this.username);
         },
         GetUserData(){
-            if(localStorage.getItem('username') !== null){
-                this.username = localStorage.getItem('username', this.username);
-            }
-            if(localStorage.getItem('profile_image') !== null){
-                this.profile_image = localStorage.getItem('profile_image', this.profile_image);
-            }
+            this.username = localStorage.getItem('username', this.username);
+            this.profile_image = localStorage.getItem('profile_image', this.profile_image);
         }
     }
 })

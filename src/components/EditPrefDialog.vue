@@ -8,6 +8,7 @@ export default {
             pref: useGameStore(),
             newUsername: null,
             editUser: false,
+            editImg: false,
             user: null,
             img: null,
             images: [],
@@ -41,7 +42,8 @@ export default {
             }
         },
         SetprofileImg(i){
-            this.pref.profile_image = i;
+            this.pref.SetprofileImg(i);
+            this.editImg = false;
         },
     },
     watch: {
@@ -59,7 +61,7 @@ export default {
         if(this.pref.profile_image !== null){
             this.img = this.pref.profile_image;
         }else{
-            this.img = '../assets/avatars/avatars_1.png';
+            this.img = new URL(`../assets/avatars/avatars_1.png`, import.meta.url).href;
         }
     }
 }
@@ -113,17 +115,31 @@ export default {
                     />
                 </div>
                 <v-divider class="mt-2 mb-8"/>
-                <p class="text-center text-h6">Choose Avatar</p>
-                <div class="d-flex justify-space-between" style="flex-wrap: wrap;">
-                    <img
-                        v-for="(i, index) in images"
-                        :key="i.index"
-                        class="ma-4"
-                        style="height: 12rem;"
-                        :alt="`avatar image ${index}`"
-                        :src="i"
-                        @click="SetprofileImg(i)"
-                    />
+                <div v-if="editImg">
+                    <p class="text-center text-h6">Choose Avatar</p>
+                    <div class="d-flex justify-space-between" style="flex-wrap: wrap;">
+                        <img
+                            v-for="(i, index) in images"
+                            :key="i.index"
+                            class="ma-4"
+                            style="height: 12rem;"
+                            :alt="`avatar image ${index}`"
+                            :src="i"
+                            @click="SetprofileImg(i)"
+                        />
+                    </div>
+                </div>
+
+                <div class="d-flex justify-space-around" v-else>
+                    <div class="profile">
+                        <img
+                            class="ma-4 mt-0"
+                            style="height: 12rem;"
+                            alt="avatar image"
+                            :src="img"
+                        />
+                        <v-btn icon="mdi-pencil" class="mb-2" fab @click="editImg = true" style="margin-top: -3rem;" />
+                    </div>
                 </div>
             </v-card-text>
         </v-card>
@@ -132,4 +148,10 @@ export default {
 
 
 <style scoped lang="scss">
+    .profile{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
 </style>
