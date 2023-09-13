@@ -37,8 +37,11 @@ export default {
         MakeImgRoutes(){
             for(let i = 0; i < 12; i++){
                 const num = i + 1
-                this.images.push(`../assets/avatars/avatars_${num}.png`);
+                this.images.push( new URL(`../assets/avatars/avatars_${num}.png`, import.meta.url).href);
             }
+        },
+        SetprofileImg(i){
+            this.pref.profile_image = i;
         },
     },
     watch: {
@@ -68,7 +71,7 @@ export default {
     <v-dialog
         v-if="dialog"
         activator="parent"
-        width="50rem"
+        width="65rem"
     >
         <v-card>
             <v-card-text>
@@ -113,15 +116,15 @@ export default {
                 <p class="text-center text-h6">Choose Avatar</p>
                 <div class="d-flex justify-space-between" style="flex-wrap: wrap;">
                     <img
-                        v-for="i in images"
+                        v-for="(i, index) in images"
                         :key="i.index"
                         class="ma-4"
+                        style="height: 12rem;"
                         :alt="`avatar image ${index}`"
                         :src="i"
                         @click="SetprofileImg(i)"
                     />
                 </div>
-                {{ images }}
             </v-card-text>
         </v-card>
     </v-dialog>
