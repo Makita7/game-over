@@ -39,7 +39,7 @@
         <img src="./assets/assets_logo.png" class="logo mt-4 ml-auto mr-auto" />
 
       </div>
-      <NavigationDrawer/>
+      <NavigationDrawer :profile_image="pref.profile_image" :user="pref.username" />
       <div style="margin-left: 56px;" class="pa-6 index">
         <RouterView />
       </div>

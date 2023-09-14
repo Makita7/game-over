@@ -1,5 +1,6 @@
 <script>
     import { useGameStore } from '../stores/GameStore';
+    import IMG1 from '../assets/avatars/avatars_1.png';
 
     export default {
         data () {
@@ -8,22 +9,24 @@
                 rail: true,
                 pref: useGameStore,
                 img: null,
-                username: null
+                username: null,
+                IMG1:IMG1,
             }
         },
+        props:{
+            profile_image: String,
+            user: String,
+
+        },
         methods: {
-            GetData(){
-                this.username = this.pref.username;
-                this.img = `../assets/avatars/avatars_${this.pref.profile_image}.png`;
-            }
         },
         watch: {
             pref: {
                 handler(){
-                    this.username = this.pref.username;
-                    this.img = this.pref.profile_image;
                 }
             }
+        },
+        mounted(){
         }
     }
 </script>
@@ -40,24 +43,23 @@
             color="secondary"
         >
             <v-list-item
-                v-if="username"
-                :prepend-avatar="img || '../assets/avatars/avatars_1.png'"
-                :title="username"
+                v-if="user"
+                :prepend-avatar="profile_image"
+                :title="user"
                 nav
             >
-            <template v-slot:append>
-                <v-btn
-                variant="text"
-                icon="mdi-chevron-left"
-                @click.stop="rail = !rail"
-                ></v-btn>
-            </template>
+                <template v-slot:append>
+                    <v-btn
+                    variant="text"
+                    icon="mdi-chevron-left"
+                    @click.stop="rail = !rail"
+                    ></v-btn>
+                </template>
             </v-list-item>
-
 
             <v-list-item
                 v-else
-                prepend-avatar="../assets/avatars/avatars_1.png"
+                :prepend-avatar="IMG1"
                 title="No username"
                 nav
             >

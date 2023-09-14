@@ -16,7 +16,7 @@ import { useGameStore } from '../stores/GameStore';
             EditPrefDialog
         },
         mounted() {
-            // window.scroll({ top: 0});
+            window.scroll({ top: 0});
         },
         methods: {
             ToggleDialog(){
